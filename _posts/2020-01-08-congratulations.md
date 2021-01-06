@@ -15,6 +15,6 @@ You completed one more orbit around the sun on expert mode.
 
 In order to properly celebrate this I have prepared a small gift for you.
 
-To unlock the gift just press this [link](https://tinyurl.com/y2oltj5x)! (don't worry, no phishing)
+To unlock the gift just press this [link](https://tinyurl.com/yyx3col7)! (don't worry, no phishing)
 
 
